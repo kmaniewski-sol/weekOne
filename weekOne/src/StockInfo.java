@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 class StockInfo {
     private static DBConnection dbConnection = DBConnection.getInstance();
@@ -12,8 +9,8 @@ class StockInfo {
     static void dailyView(String date){
         try {
             String query = "SELECT DISTINCT symbol FROM stocks";
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String symbol = resultSet.getString("symbol");
                 stockInfo(symbol, date);
@@ -32,14 +29,9 @@ class StockInfo {
         double maxMonthPrice = StockQueries.maxMonthPrice(symbol, date);
         double minMonthPrice = StockQueries.minMonthPrice(symbol, date);
         int sumMonthVolume = StockQueries.sumMonthVolume(symbol, date);
-        System.out.println("Stock: " + symbol);
-        System.out.println("Date: " + date);
-        System.out.println("Highest Price: " + maxPrice);
-        System.out.println("Lowest Price: " + minPrice);
-        System.out.println("Total Volume: " + sumVolume);
-        System.out.println("Closing Price: " + closingPrice);
-        System.out.println("Highest Price of Month: " + maxMonthPrice);
-        System.out.println("Lowest Price of Month: " + minMonthPrice);
-        System.out.println("Total Volume of Month: " + sumMonthVolume);
+        StockObject stockObject = new StockObject(symbol, date,
+                maxPrice, minPrice, sumVolume, closingPrice,
+                maxMonthPrice, minMonthPrice, sumMonthVolume);
+        stockObject.getStockInfo();
     }
 }

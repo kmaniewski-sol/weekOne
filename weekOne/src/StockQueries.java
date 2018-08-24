@@ -6,7 +6,8 @@ class StockQueries {
 
     static double maxPrice(String symbol, String date){
     try {
-        String maxQuery = "SELECT MAX(price) as price FROM stocks WHERE symbol = ? AND DATE(timestamp) = ?";
+        String maxQuery = "SELECT MAX(price) as price FROM stocks WHERE symbol = ?" +
+                " AND DATE(timestamp) = ?";
         PreparedStatement preparedStatement = conn.prepareStatement(maxQuery);
         preparedStatement.setString(1, symbol);
         preparedStatement.setString(2, date);
@@ -19,7 +20,8 @@ class StockQueries {
 }
     static double minPrice(String symbol, String date){
         try {
-            String minQuery = "SELECT MIN(price) as price FROM stocks WHERE symbol = ? AND DATE(timestamp) = ?";
+            String minQuery = "SELECT MIN(price) as price FROM stocks WHERE symbol = ?" +
+                    " AND DATE(timestamp) = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(minQuery);
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, date);
@@ -33,7 +35,8 @@ class StockQueries {
 
     static int sumVolume(String symbol, String date){
         try {
-            String sumQuery = "SELECT SUM(volume) as volume FROM stocks WHERE symbol = ? AND DATE(timestamp) = ?";
+            String sumQuery = "SELECT SUM(volume) as volume FROM stocks WHERE symbol = ?" +
+                    " AND DATE(timestamp) = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sumQuery);
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, date);
@@ -47,7 +50,8 @@ class StockQueries {
 
     static double closingPrice(String symbol, String date){
         try {
-            String closeQuery = "SELECT * FROM stocks WHERE symbol = ? AND DATE(timestamp) = ? ORDER BY timestamp DESC LIMIT 1";
+            String closeQuery = "SELECT * FROM stocks WHERE symbol = ? AND DATE(timestamp) = ?" +
+                    " ORDER BY timestamp DESC LIMIT 1";
             PreparedStatement preparedStatement = conn.prepareStatement(closeQuery);
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, date);
@@ -61,7 +65,8 @@ class StockQueries {
 
     static double maxMonthPrice(String symbol, String date){
         try {
-            String maxMonthQuery = "SELECT MAX(price) as price FROM stocks WHERE symbol = ? AND MONTH(DATE(timestamp)) = MONTH(?)";
+            String maxMonthQuery = "SELECT MAX(price) as price FROM stocks WHERE symbol = ?" +
+                    " AND MONTH(DATE(timestamp)) = MONTH(?)";
             PreparedStatement preparedStatement = conn.prepareStatement(maxMonthQuery);
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, date);
@@ -74,7 +79,8 @@ class StockQueries {
     }
     static double minMonthPrice(String symbol, String date){
         try {
-            String minMonthQuery = "SELECT MIN(price) as price FROM stocks WHERE symbol = ? AND MONTH(DATE(timestamp)) = MONTH(?)";
+            String minMonthQuery = "SELECT MIN(price) as price FROM stocks WHERE symbol = ?" +
+                    " AND MONTH(DATE(timestamp)) = MONTH(?)";
             PreparedStatement preparedStatement = conn.prepareStatement(minMonthQuery);
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, date);
@@ -88,7 +94,8 @@ class StockQueries {
 
     static int sumMonthVolume(String symbol, String date){
         try {
-            String sumMonthQuery = "SELECT SUM(volume) as volume FROM stocks WHERE symbol = ? AND MONTH(DATE(timestamp)) = Month(?)";
+            String sumMonthQuery = "SELECT SUM(volume) as volume FROM stocks WHERE symbol = ?" +
+                    " AND MONTH(DATE(timestamp)) = Month(?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sumMonthQuery);
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, date);
